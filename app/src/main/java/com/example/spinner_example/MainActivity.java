@@ -10,7 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         Spinner spinner = findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(this);
 
         String[] planets = getResources().getStringArray(R.array.planets_array);
 
@@ -26,17 +25,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         spinner.setAdapter(adapter);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-    }
+                Toast.makeText(MainActivity.this, ""+i, Toast.LENGTH_SHORT).show();
+            }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        TextView textView = (TextView) view;
-        Toast.makeText(this, textView.getText().toString() , Toast.LENGTH_SHORT).show();
-    }
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+
 
     }
 }
